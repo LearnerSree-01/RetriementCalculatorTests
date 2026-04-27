@@ -1,7 +1,7 @@
 import { expect} from '@wdio/globals'
-import Page from './page';
-import RetirementCalculatorPageSelectors from '../support/selectors/retirementCalculatotPageSelectors';
-import RetirementCalculatorStrings from '../support/strings/retirementcalculatorPageStrings';
+import Page from './page.ts';
+import RetirementCalculatorPageSelectors from '../support/selectors/retirementCalculatotPageSelectors.ts';
+import RetirementCalculatorStrings from '../support/strings/retirementcalculatorPageStrings.ts';
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -27,16 +27,15 @@ class RetirementCalculatorPage extends Page {
 
         await RetirementCalculatorPageSelectors.currentIncome.waitForDisplayed({ timeout: 5000 })
         await RetirementCalculatorPageSelectors.currentIncome.waitForEnabled({ timeout: 5000 })
+        await RetirementCalculatorPageSelectors.currentIncome.scrollIntoView()
         await RetirementCalculatorPageSelectors.currentIncome.click()
-        await RetirementCalculatorPageSelectors.currentIncome.clearValue()
         await RetirementCalculatorPageSelectors.currentIncome.setValue(currentIncome)
 
 
         await RetirementCalculatorPageSelectors.currentTotalSavings.waitForDisplayed({ timeout: 5000 })
         await RetirementCalculatorPageSelectors.currentTotalSavings.waitForEnabled({ timeout: 5000 })
         await RetirementCalculatorPageSelectors.currentTotalSavings.click()
-        await RetirementCalculatorPageSelectors.currentTotalSavings.clearValue()
-        await RetirementCalculatorPageSelectors.currentTotalSavings.setValue(totalSavings)
+               await RetirementCalculatorPageSelectors.currentTotalSavings.setValue(totalSavings)
 
         await RetirementCalculatorPageSelectors.currentAnnualSavings.setValue(annualsavings)
 
@@ -51,27 +50,24 @@ class RetirementCalculatorPage extends Page {
 
         await RetirementCalculatorPageSelectors.currentIncome.waitForDisplayed({ timeout: 5000 })
         await RetirementCalculatorPageSelectors.currentIncome.waitForEnabled({ timeout: 5000 })
+        await RetirementCalculatorPageSelectors.currentIncome.scrollIntoView();
         await RetirementCalculatorPageSelectors.currentIncome.click()
-        await RetirementCalculatorPageSelectors.currentIncome.clearValue()
         await RetirementCalculatorPageSelectors.currentIncome.setValue(currentIncome)
 
         await RetirementCalculatorPageSelectors.spouseIncome.waitForDisplayed({ timeout: 5000 })
         await RetirementCalculatorPageSelectors.spouseIncome.waitForEnabled({ timeout: 5000 })
         await RetirementCalculatorPageSelectors.spouseIncome.click()
-        await RetirementCalculatorPageSelectors.spouseIncome.clearValue()
         await RetirementCalculatorPageSelectors.spouseIncome.setValue(spouseIncome)
         
 
         await RetirementCalculatorPageSelectors.currentTotalSavings.waitForDisplayed({ timeout: 5000 })
         await RetirementCalculatorPageSelectors.currentTotalSavings.waitForEnabled({ timeout: 5000 })
         await RetirementCalculatorPageSelectors.currentTotalSavings.click()
-        await RetirementCalculatorPageSelectors.currentTotalSavings.clearValue()
         await RetirementCalculatorPageSelectors.currentTotalSavings.setValue(totalSavings)
 
-         await RetirementCalculatorPageSelectors.currentAnnualSavings.waitForDisplayed({ timeout: 5000 })
+        await RetirementCalculatorPageSelectors.currentAnnualSavings.waitForDisplayed({ timeout: 5000 })
         await RetirementCalculatorPageSelectors.currentAnnualSavings.waitForEnabled({ timeout: 5000 })
         await RetirementCalculatorPageSelectors.currentAnnualSavings.click()
-        await RetirementCalculatorPageSelectors.currentAnnualSavings.clearValue()
         await RetirementCalculatorPageSelectors.currentAnnualSavings.setValue(annualsavings)
 
         await RetirementCalculatorPageSelectors.savingsIncreaseRate.waitForDisplayed({ timeout: 5000 })
@@ -92,6 +88,7 @@ class RetirementCalculatorPage extends Page {
             await RetirementCalculatorPageSelectors.socialSecurityToggleYes.scrollIntoView();
             await RetirementCalculatorPageSelectors.socialSecurityToggleYes.waitForClickable({ timeout: 5000 });
             await RetirementCalculatorPageSelectors.socialSecurityToggleYes.click();
+            
            
         }
            
@@ -162,35 +159,6 @@ class RetirementCalculatorPage extends Page {
         }
 
 
-        async enterFieldValues (fieldName: string, value: string) {
-            switch (fieldName.toLowerCase()) {   
-                case 'current age':
-                    await RetirementCalculatorPageSelectors.currentAge.setValue(value)
-                    break
-                case 'retirement age':
-                    await RetirementCalculatorPageSelectors.retirementAge.setValue(value)
-                    break  
-                case 'current income': 
-                    await RetirementCalculatorPageSelectors.currentIncome.setValue(value)
-                    break
-                case 'spouse income':
-                    await RetirementCalculatorPageSelectors.spouseIncome.setValue(value)
-                    break
-                case 'current total savings':
-                    await RetirementCalculatorPageSelectors.currentTotalSavings.setValue(value)
-                    break   
-                case 'current annual savings':
-                    await RetirementCalculatorPageSelectors.currentAnnualSavings.setValue(value)
-                    break
-                case 'savings increase rate':
-                    await RetirementCalculatorPageSelectors.savingsIncreaseRate.setValue(value)
-                    break
-                default:    
-                    console.log(`Field name ${fieldName} is not recognized.`)
-
-            }
-       
-       }
 
 
         // Click Adjust Default Value link
@@ -217,20 +185,52 @@ class RetirementCalculatorPage extends Page {
         }
 
         // Update default values in modal
-        async updateDefaultValues(value: string) {
+        async updateDefaultValues(otherIncome: string, retirementDuration: string, retirementAnnualIncome: string,  pretirementAnnualIncomePercentage: string, postRetirementInvestmentReturn: string) {
             await RetirementCalculatorPageSelectors.defaultValuesModal.waitForDisplayed({ timeout: 5000 });
             await RetirementCalculatorPageSelectors.additionalIncomeDefaultValue.waitForDisplayed({ timeout: 5000 });
-            await RetirementCalculatorPageSelectors.additionalIncomeDefaultValue.setValue(value);
-            await RetirementCalculatorPageSelectors.saveChangesButton.click();
+            await RetirementCalculatorPageSelectors.additionalIncomeDefaultValue.waitForEnabled({ timeout: 5000 });
+            await RetirementCalculatorPageSelectors.additionalIncomeDefaultValue.click();
+            await RetirementCalculatorPageSelectors.additionalIncomeDefaultValue.setValue(otherIncome);
+
+
+            await RetirementCalculatorPageSelectors.retirementDuration.waitForDisplayed({ timeout: 5000 });
+            await RetirementCalculatorPageSelectors.retirementDuration.setValue(retirementDuration);
+
+            await RetirementCalculatorPageSelectors.retirementAnnualIncome.waitForDisplayed({ timeout: 5000 });
+            await RetirementCalculatorPageSelectors.retirementAnnualIncome.setValue(retirementAnnualIncome);
+
+
+
+
+            await RetirementCalculatorPageSelectors.pretirementAnnualIncomePercentage.waitForDisplayed({ timeout: 5000 });
+            await RetirementCalculatorPageSelectors.pretirementAnnualIncomePercentage.setValue(pretirementAnnualIncomePercentage);
+            
+            
+            await RetirementCalculatorPageSelectors.postRetirementInvestmentReturn.waitForDisplayed({ timeout: 5000 });
+            await RetirementCalculatorPageSelectors.postRetirementInvestmentReturn.setValue(postRetirementInvestmentReturn);
         }
+
+        // Close default values in modal
+        async saveChangesDefaultValuesModal() {
+        await RetirementCalculatorPageSelectors.saveChangesButton.click();
+        await RetirementCalculatorPageSelectors.additionalIncomeDefaultValue.waitForDisplayed({ reverse: true }); 
+        }
+
 
         // Check if field value is updated
         async isFieldValueUpdated(value: string) {
-            
+        
             await RetirementCalculatorPageSelectors.defaultValuesModal.waitForDisplayed({ timeout: 5000 });
             const fieldValue = await RetirementCalculatorPageSelectors.additionalIncomeDefaultValue.getValue();
-            return parseInt(fieldValue) === parseInt(value);
+            const cleanedFieldValue = fieldValue.replace(/[$,]/g, '');
+            console.log('Field Value:', fieldValue, cleanedFieldValue, 'Expected Value:', value);
+            if (parseInt(cleanedFieldValue) === parseInt(value)) {
+                return true;
+            }
+            return false;
         }
+
+
 
 
 

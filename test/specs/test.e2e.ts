@@ -1,7 +1,5 @@
 import { expect } from '@wdio/globals'
-import LoginPage from '../pageobjects/login.page'
-import SecurePage from '../pageobjects/secure.page'
-import RetirementCalculatorPage from '../pageobjects/retirementcalculator.page'
+import RetirementCalculatorPage from '../pageobjects/retirementcalculator.page.ts'
 
 describe('Retirement Calculator', () => {
     
@@ -67,20 +65,24 @@ describe('Retirement Calculator', () => {
     })
 
     it('User should be able to update default calculator values', async () => {
+
+        const otherIncome = '20000'
+        const retirementDuration = '20'
+        const retirementAnnualIncome = '30000'
+             const pretirementAnnualIncomePercentage = '50'
+        const postRetirementInvestmentReturn = '5'
         await RetirementCalculatorPage.open()
         await RetirementCalculatorPage.clickAdjustDefaultValue()
-        await RetirementCalculatorPage.updateDefaultValues('2000')
-   
-
-        //reopen modal to verify updated value is displayed
-        await RetirementCalculatorPage.openAdjustDefaultValueModal()
-        expect(await RetirementCalculatorPage.isFieldValueUpdated('2000')).toBe(true)
-       
-
-        await   RetirementCalculatorPage.closeDefaultValuesModal()
+        await RetirementCalculatorPage.updateDefaultValues(otherIncome, retirementDuration, retirementAnnualIncome, pretirementAnnualIncomePercentage, postRetirementInvestmentReturn)
+        await RetirementCalculatorPage.saveChangesDefaultValuesModal() 
+        
+        //reopen modal to verify updated value is displayed in the modal
+        await RetirementCalculatorPage.clickAdjustDefaultValue()
+        expect(await RetirementCalculatorPage.isFieldValueUpdated(otherIncome)).toBe(true)
 
 })
 
+ 
 })
 
 

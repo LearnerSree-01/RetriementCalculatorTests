@@ -47,7 +47,8 @@ const RetirementCalculatorPageSelectors = {
     get closeModalButton () { return $('.modal-close') } ,
 
     get defaultValuesButton () { return $('#default-values-modal') },
-    get defaultValueModal () { return $('#default-values-modal') },
+    get retirementDuration () { return $('#retirement-duration') },
+     get retirementAnnualIncome () { return $('#retirement-annual-income') },
     get additionalIncomeDefaultValue () { return $('#additional-income') },
     get includeInflationRadioButtons () { return $('#include-inflation-container') }, 
     get expectedInflationRate () { return $('#expected-inflation-rate') },
@@ -56,6 +57,10 @@ const RetirementCalculatorPageSelectors = {
     get saveChangesButton () { return $('button=Save changes') },
     get cancelButton () { return $('button=Cancel') },
     get defaultValuesModalCloseButton () { return $('button^=close')},
+
+    
+   
+   
 };  
 
 export default RetirementCalculatorPageSelectors;
